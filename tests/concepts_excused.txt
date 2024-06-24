@@ -5,3 +5,5 @@
 # http://example.org/ontology/example/DeletedClass
 #
 # Lines with a leading '#' character are ignored.
+
+http://www.w3.org/2006/time#inXSDDateTime

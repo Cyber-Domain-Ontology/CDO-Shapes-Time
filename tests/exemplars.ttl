@@ -14,3 +14,58 @@
 	owl:imports <http://example.org/shapes/sh-time> ;
 	.
 
+kb:Instant-9a688ff3-df05-4151-b68d-c056f1bde072
+	a time:Instant ;
+	.
+
+kb:Instant-c306e8e7-30b1-4dda-b039-fda00d20b2b0
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2020-01-01T00:00:00+00:00"^^xsd:dateTimeStamp ;
+	.
+
+kb:Instant-fe358785-e77f-436a-bb03-157286c7e476
+	a time:Instant ;
+	time:inXSDDate "2020-01-01"^^xsd:date ;
+	.
+
+kb:Interval-9940bc62-e795-4923-bc2e-a83197211b6b
+	a time:Interval ;
+	time:inside kb:Instant-9a688ff3-df05-4151-b68d-c056f1bde072 ;
+	.
+
+kb:ProperInterval-1374ad9e-9c65-4369-a656-7cf7b223c816
+	a time:ProperInterval ;
+	time:intervalDuring kb:ProperInterval-ec8303f4-2862-41b7-b6ee-b6f3f6e8251e ;
+	.
+
+kb:ProperInterval-6224434f-df82-40e8-a78a-4faacfa6df1c
+	a time:ProperInterval ;
+	time:intervalContains kb:ProperInterval-89561820-12d5-4fa9-8972-90b6877d2d92 ;
+	.
+
+kb:ProperInterval-6a3cbd9f-b177-4e90-ba3b-a198f563aa8a
+	a time:ProperInterval ;
+	.
+
+kb:ProperInterval-82019c04-9a6b-4dc4-8a07-99b890e824ba
+	a time:ProperInterval ;
+	time:intervalEquals kb:ProperInterval-995ed778-ee4e-436b-84de-d374f37238a1 ;
+	.
+
+kb:ProperInterval-89561820-12d5-4fa9-8972-90b6877d2d92
+	a time:ProperInterval ;
+	.
+
+kb:ProperInterval-995ed778-ee4e-436b-84de-d374f37238a1
+	a time:ProperInterval ;
+	.
+
+kb:ProperInterval-b56e4478-9c70-445e-8279-6fce6a8f9018
+	a time:ProperInterval ;
+	time:intervalIn kb:ProperInterval-6a3cbd9f-b177-4e90-ba3b-a198f563aa8a ;
+	.
+
+kb:ProperInterval-ec8303f4-2862-41b7-b6ee-b6f3f6e8251e
+	a time:ProperInterval ;
+	.
+
