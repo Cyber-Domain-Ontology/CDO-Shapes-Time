@@ -57,10 +57,8 @@ clean:
 	  example.ttl \
 	  imports-transitive.ttl
 
-# TODO: Adapt this recipe to normalize a submodule's file, or downloaded
-# file, in the same manner as CDO ontologies are normalized.
-example.ttl: \
-  example/example.owl \
+time.ttl: \
+  sdw/time/rdf/time.ttl \
   $(RDF_TOOLKIT_JAR) \
   $(top_srcdir)/.venv.done.log
 	source $(top_srcdir)/venv/bin/activate \
@@ -70,20 +68,15 @@ example.ttl: \
 	java -jar $(RDF_TOOLKIT_JAR) \
 	  --inline-blank-nodes \
 	  --source $< \
-	  --source-format rdf-xml \
+	  --source-format turtle \
 	  --target _$@ \
 	  --target-format turtle
 	mv _$@ $@
 
 # This recipe intentionally does not incorporate CDO ontologies (UCO,
 # CASE, etc.), to avoid redundant imports between multiple profiles.
-# TODO: Adapt this recipe to depend instead on the normalized file, as
-# well as any profile submodules' imports-transitive files.
-# Note that the piping command, analagous to the concatenate ('cat')
-# command but for RDF graph files, will combine all recipe dependencies
-# into one file, using the $^ ("all dependencies") Make variable.
 imports-transitive.ttl: \
-  example.ttl
+  time.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \

@@ -2,3 +2,7 @@
 	path = dependencies/UCO
 	url = https://github.com/ucoProject/UCO.git
 	branch = master
+[submodule "dependencies/sdw"]
+	path = dependencies/sdw
+	url = https://github.com/w3c/sdw.git
+	branch = gh-pages
