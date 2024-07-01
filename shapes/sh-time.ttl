@@ -18,6 +18,57 @@
 		;
 	.
 
+sh-time:Instant-disjointWith-ProperInterval-shape
+	a sh:NodeShape ;
+	sh:message "The classes time:Instant and time:ProperInterval are disjoint."@en ;
+	sh:not [
+		a sh:NodeShape ;
+		sh:class time:ProperInterval ;
+	] ;
+	sh:targetClass time:Instant ;
+	.
+
+sh-time:hasBeginning-objects-shape
+	a sh:NodeShape ;
+	sh:class time:Instant ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:hasBeginning ;
+	.
+
+sh-time:hasBeginning-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:hasBeginning ;
+	.
+
+sh-time:hasEnd-objects-shape
+	a sh:NodeShape ;
+	sh:class time:Instant ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:hasEnd ;
+	.
+
+sh-time:hasEnd-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:hasEnd ;
+	.
+
+sh-time:hasTime-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:hasTime ;
+	.
+
+sh-time:hasTime-subjects-shape
+	a sh:NodeShape ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:hasTime ;
+	.
+
 sh-time:inXSDDate-objects-shape
 	a sh:NodeShape ;
 	sh:datatype xsd:date ;

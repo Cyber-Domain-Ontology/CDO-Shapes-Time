@@ -69,3 +69,30 @@ kb:ProperInterval-ec8303f4-2862-41b7-b6ee-b6f3f6e8251e
 	a time:ProperInterval ;
 	.
 
+kb:TemporalEntity-87790b29-70f9-4093-ba98-f0f8f159190e
+	a time:TemporalEntity ;
+	time:hasBeginning time:Instant-1cbbe067-f904-4b5f-a3de-e3c79fb86f0a ;
+	.
+
+kb:TemporalEntity-a872dbc9-78ff-46e0-b6ed-64a59d436598
+	a time:TemporalEntity ;
+	time:hasEnd time:Instant-15a735b3-b9ef-4eb7-947d-a0deb8cc8ec7 ;
+	.
+
+kb:Thing-6e734b5d-21fc-4604-91b3-015da5aeac76
+	a owl:Thing ;
+	time:hasTime time:TemporalEntity-c379e54b-540a-4c60-b709-3689f5a273c1 ;
+	.
+
+time:Instant-15a735b3-b9ef-4eb7-947d-a0deb8cc8ec7
+	a time:Instant ;
+	.
+
+time:Instant-1cbbe067-f904-4b5f-a3de-e3c79fb86f0a
+	a time:Instant ;
+	.
+
+time:TemporalEntity-c379e54b-540a-4c60-b709-3689f5a273c1
+	a time:TemporalEntity ;
+	.
+
