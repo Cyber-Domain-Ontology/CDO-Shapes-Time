@@ -14,7 +14,15 @@
 	owl:imports <http://example.org/shapes/sh-time> ;
 	.
 
+kb:Instant-8f397425-81cd-45d4-a27f-ed7b8833228a
+	a time:Instant ;
+	.
+
 kb:Instant-9a688ff3-df05-4151-b68d-c056f1bde072
+	a time:Instant ;
+	.
+
+kb:Instant-acd2ab02-7468-4ae8-8ef3-f03c109852bd
 	a time:Instant ;
 	.
 
@@ -26,6 +34,13 @@ kb:Instant-c306e8e7-30b1-4dda-b039-fda00d20b2b0
 kb:Instant-fe358785-e77f-436a-bb03-157286c7e476
 	a time:Instant ;
 	time:inXSDDate "2020-01-01"^^xsd:date ;
+	.
+
+kb:Interval-3137182b-f4a2-46aa-983b-092aeb0aa56e
+	a time:Interval ;
+	rdfs:comment "This Interval can be entailed as an Instant from having the same instant as beginning and end."@en ;
+	time:hasBeginning kb:Instant-acd2ab02-7468-4ae8-8ef3-f03c109852bd ;
+	time:hasEnd kb:Instant-acd2ab02-7468-4ae8-8ef3-f03c109852bd ;
 	.
 
 kb:Interval-9940bc62-e795-4923-bc2e-a83197211b6b
@@ -72,6 +87,13 @@ kb:ProperInterval-ec8303f4-2862-41b7-b6ee-b6f3f6e8251e
 kb:TemporalEntity-87790b29-70f9-4093-ba98-f0f8f159190e
 	a time:TemporalEntity ;
 	time:hasBeginning time:Instant-1cbbe067-f904-4b5f-a3de-e3c79fb86f0a ;
+	.
+
+kb:TemporalEntity-906144d4-4663-4eb0-84f0-cdb780cef154
+	a time:TemporalEntity ;
+	rdfs:comment "This TemporalEntity can be entailed as an Instant and (0-duration) Interval from having the same instant as beginning and end."@en ;
+	time:hasBeginning kb:Instant-8f397425-81cd-45d4-a27f-ed7b8833228a ;
+	time:hasEnd kb:Instant-8f397425-81cd-45d4-a27f-ed7b8833228a ;
 	.
 
 kb:TemporalEntity-a872dbc9-78ff-46e0-b6ed-64a59d436598
