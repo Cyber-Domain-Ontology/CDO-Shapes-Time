@@ -18,10 +18,14 @@ import logging
 from pathlib import Path
 from typing import Optional, Set
 
-from rdflib import SH, Graph, URIRef
+from pytest import skip
+from rdflib import RDF, SH, TIME, Graph, Namespace, URIRef
 from rdflib.query import ResultRow
 
+NS_KB = Namespace("http://example.org/kb/")
+NS_RDF = RDF
 NS_SH = SH
+NS_TIME = TIME
 
 srcdir = Path(__file__).parent
 top_srcdir = srcdir.parent
@@ -163,3 +167,35 @@ ASK {
     assert properties_mapped <= (
         properties_with_exemplars | concepts_excused
     ) and classes_mapped <= (classes_with_exemplars | concepts_excused)
+
+
+def test_interval_to_proper_interval() -> None:
+    """\
+The below exemplar nodes each tie two `time:Instant`s, via the noted predicate.
+
+| Temporal entity or Interval     | `time:hasBeginning`      | `time:inside`            | `time:inside` (2nd)      | `time:hasEnd`            |
+| ---                             | ---                      | ---                      | ---                      | ---                      |
+| `kb:TemporalEntity-00947113...` | `kb:Instant-0180e20a...` |                          |                          | `kb:Instant-02f01c68...` |
+| `kb:Interval-119f05f1...`       | `kb:Instant-128fc0de...` | `kb:Instant-130657a0...` |                          |                          |
+| `kb:Interval-2377e0a2...`       | `kb:Instant-25b30b38...` |                          |                          | `kb:Instant-264e96c9...` |
+| `kb:Interval-33e90e08...`       |                          | `kb:Instant-38a01481...` | `kb:Instant-3aea3fe6...` |                          |
+| `kb:Interval-422c1878...`       |                          |                          | `kb:Instant-435e90ab...` | `kb:Instant-450226bc...` |
+"""
+    skip("TODO")
+    expected: set[URIRef] = {
+        NS_KB["TemporalEntity-00947113-902d-4550-9c2c-f6175b31ef19"],
+        NS_KB["Interval-119f05f1-8049-4556-86c4-c7cabcfa7fbf"],
+        NS_KB["Interval-2377e0a2-a983-44d6-b5f8-a2a4538d6819"],
+        NS_KB["Interval-33e90e08-7045-4369-88cd-68e96b96967c"],
+        NS_KB["Interval-422c1878-dd0b-42b7-8975-42b28106a917"],
+    }
+    computed: set[URIRef] = set()
+
+    graph = Graph()
+    # TODO - Load.
+
+    for n_subject in graph.subjects(NS_RDF.type, NS_TIME.ProperInterval):
+        assert isinstance(n_subject, URIRef)
+        computed.add(n_subject)
+
+    assert expected <= computed()
