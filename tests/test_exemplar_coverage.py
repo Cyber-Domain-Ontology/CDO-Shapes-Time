@@ -169,7 +169,7 @@ ASK {
     ) and classes_mapped <= (classes_with_exemplars | concepts_excused)
 
 
-def test_interval_to_proper_interval() -> None:
+def test_temporal_entity_to_proper_interval() -> None:
     """\
 The below exemplar nodes each tie two `time:Instant`s, via the noted predicate.
 
