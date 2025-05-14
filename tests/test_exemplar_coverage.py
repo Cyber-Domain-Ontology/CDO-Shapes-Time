@@ -198,4 +198,4 @@ The below exemplar nodes each tie two `time:Instant`s, via the noted predicate.
         assert isinstance(n_subject, URIRef)
         computed.add(n_subject)
 
-    assert expected <= computed()
+    assert expected <= computed
