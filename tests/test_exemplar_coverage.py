@@ -169,6 +169,24 @@ ASK {
     ) and classes_mapped <= (classes_with_exemplars | concepts_excused)
 
 
+def test_temporal_entity_to_instant() -> None:
+    skip("TODO")
+    expected: set[URIRef] = {
+        NS_KB["TemporalEntity-906144d4-4663-4eb0-84f0-cdb780cef154"],
+        NS_KB["Interval-3137182b-f4a2-46aa-983b-092aeb0aa56e"],
+    }
+    computed: set[URIRef] = set()
+
+    graph = Graph()
+    # TODO - Load.
+
+    for n_subject in graph.subjects(NS_RDF.type, NS_TIME.Instant):
+        assert isinstance(n_subject, URIRef)
+        computed.add(n_subject)
+
+    assert expected <= computed
+
+
 def test_temporal_entity_to_proper_interval() -> None:
     """\
 The below exemplar nodes each tie two `time:Instant`s, via the noted predicate.
