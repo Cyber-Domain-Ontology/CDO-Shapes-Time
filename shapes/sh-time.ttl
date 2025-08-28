@@ -28,6 +28,34 @@ sh-time:Instant-disjointWith-ProperInterval-shape
 	sh:targetClass time:Instant ;
 	.
 
+sh-time:after-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:after ;
+	.
+
+sh-time:after-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:after ;
+	.
+
+sh-time:before-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:before ;
+	.
+
+sh-time:before-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:before ;
+	.
+
 sh-time:hasBeginning-objects-shape
 	a sh:NodeShape ;
 	sh:class time:Instant ;
@@ -118,6 +146,34 @@ sh-time:inside-subjects-shape
 	sh:class time:Interval ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:targetSubjectsOf time:inside ;
+	.
+
+sh-time:intervalAfter-objects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:intervalAfter ;
+	.
+
+sh-time:intervalAfter-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:intervalAfter ;
+	.
+
+sh-time:intervalBefore-objects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:intervalBefore ;
+	.
+
+sh-time:intervalBefore-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:intervalBefore ;
 	.
 
 sh-time:intervalContains-objects-shape
