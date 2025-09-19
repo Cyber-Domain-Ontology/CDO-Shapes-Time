@@ -1,0 +1,86 @@
+# imports: http://example.org/shapes/sh-time
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sh-time-ed: <http://example.org/shapes/sh-time-editors-draft/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/shapes/sh-time-editors-draft>
+	a owl:Ontology ;
+	owl:imports <http://example.org/shapes/sh-time> ;
+	.
+
+sh-time-ed:disjoint-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:disjoint ;
+	.
+
+sh-time-ed:disjoint-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property [
+		a sh:PropertyShape ;
+		sh:disjoint time:notDisjoint ;
+		sh:path time:disjoint ;
+	] ;
+	sh:targetSubjectsOf time:disjoint ;
+	.
+
+sh-time-ed:equals-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:equals ;
+	.
+
+sh-time-ed:equals-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetSubjectsOf time:equals ;
+	.
+
+sh-time-ed:hasInside-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:hasInside ;
+	.
+
+sh-time-ed:hasInside-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property [
+		a sh:PropertyPath ;
+		sh:disjoint time:equals ;
+		sh:path time:hasInside ;
+	] ;
+	sh:targetSubjectsOf time:hasInside ;
+	.
+
+sh-time-ed:notDisjoint-objects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:targetObjectsOf time:notDisjoint ;
+	.
+
+sh-time-ed:notDisjoint-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:TemporalEntity ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property [
+		a sh:PropertyShape ;
+		sh:disjoint time:disjoint ;
+		sh:path time:notDisjoint ;
+	] ;
+	sh:targetSubjectsOf time:notDisjoint ;
+	.
+
