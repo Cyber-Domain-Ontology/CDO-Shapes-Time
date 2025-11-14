@@ -3,12 +3,24 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sh-time: <http://example.org/shapes/sh-time/> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 []
 	a sh:ValidationReport ;
 	sh:conforms "false"^^xsd:boolean ;
 	sh:result
+		[
+			a sh:ValidationResult ;
+			sh:focusNode <http://example.org/kb/Thing-0ed0d73d-4057-421b-9706-542cd7e26165> ;
+			sh:resultMessage "Value does not have class time:TemporalEntity" ;
+			sh:resultPath time:before ;
+			sh:resultSeverity sh:Violation ;
+			sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+			sh:sourceShape sh-time:before-subjects-before-shape ;
+			sh:value [
+			] ;
+		] ,
 		[
 			a sh:ValidationResult ;
 			sh:focusNode <http://example.org/kb/Thing-0ed0d73d-4057-421b-9706-542cd7e26165> ;
@@ -26,17 +38,6 @@
 			sh:sourceConstraintComponent sh:ClassConstraintComponent ;
 			sh:sourceShape sh-time:intervalBefore-subjects-shape ;
 			sh:value <http://example.org/kb/Thing-63231cce-3804-4195-b992-3066c0ca949a> ;
-		] ,
-		[
-			a sh:ValidationResult ;
-			sh:focusNode [
-			] ;
-			sh:resultMessage "Value does not have class time:TemporalEntity" ;
-			sh:resultSeverity sh:Violation ;
-			sh:sourceConstraintComponent sh:ClassConstraintComponent ;
-			sh:sourceShape sh-time:before-objects-shape ;
-			sh:value [
-			] ;
 		] ,
 		[
 			a sh:ValidationResult ;
