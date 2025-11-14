@@ -42,17 +42,18 @@ sh-time:after-subjects-shape
 	sh:targetSubjectsOf time:after ;
 	.
 
-sh-time:before-objects-shape
-	a sh:NodeShape ;
+sh-time:before-subjects-before-shape
+	a sh:PropertyShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:targetObjectsOf time:before ;
+	sh:path time:before ;
 	.
 
 sh-time:before-subjects-shape
 	a sh:NodeShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:before-subjects-before-shape ;
 	sh:targetSubjectsOf time:before ;
 	.
 
