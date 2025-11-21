@@ -34,21 +34,21 @@
 			a sh:ValidationResult ;
 			sh:focusNode <http://example.org/kb/Thing-63231cce-3804-4195-b992-3066c0ca949a> ;
 			sh:resultMessage "Value does not have class time:ProperInterval" ;
+			sh:resultPath time:intervalBefore ;
+			sh:resultSeverity sh:Violation ;
+			sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+			sh:sourceShape sh-time:intervalBefore-subjects-intervalBefore-shape ;
+			sh:value [
+			] ;
+		] ,
+		[
+			a sh:ValidationResult ;
+			sh:focusNode <http://example.org/kb/Thing-63231cce-3804-4195-b992-3066c0ca949a> ;
+			sh:resultMessage "Value does not have class time:ProperInterval" ;
 			sh:resultSeverity sh:Violation ;
 			sh:sourceConstraintComponent sh:ClassConstraintComponent ;
 			sh:sourceShape sh-time:intervalBefore-subjects-shape ;
 			sh:value <http://example.org/kb/Thing-63231cce-3804-4195-b992-3066c0ca949a> ;
-		] ,
-		[
-			a sh:ValidationResult ;
-			sh:focusNode [
-			] ;
-			sh:resultMessage "Value does not have class time:ProperInterval" ;
-			sh:resultSeverity sh:Violation ;
-			sh:sourceConstraintComponent sh:ClassConstraintComponent ;
-			sh:sourceShape sh-time:intervalBefore-objects-shape ;
-			sh:value [
-			] ;
 		]
 		;
 	.
