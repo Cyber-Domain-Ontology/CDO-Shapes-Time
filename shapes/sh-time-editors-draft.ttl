@@ -13,74 +13,84 @@
 	owl:imports <http://example.org/shapes/sh-time> ;
 	.
 
-sh-time-ed:disjoint-objects-shape
-	a sh:NodeShape ;
+sh-time-ed:disjoint-subjects-disjoint-shape
+	a sh:PropertyShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:targetObjectsOf time:disjoint ;
+	sh:path time:disjoint ;
 	.
 
 sh-time-ed:disjoint-subjects-shape
 	a sh:NodeShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:property [
-		a sh:PropertyShape ;
-		sh:disjoint time:notDisjoint ;
-		sh:path time:disjoint ;
-	] ;
+	sh:property
+		sh-time-ed:disjoint-subjects-disjoint-shape ,
+		[
+			a sh:PropertyShape ;
+			sh:disjoint time:notDisjoint ;
+			sh:path time:disjoint ;
+		]
+		;
 	sh:targetSubjectsOf time:disjoint ;
 	.
 
-sh-time-ed:equals-objects-shape
-	a sh:NodeShape ;
+sh-time-ed:equals-subjects-equals-shape
+	a sh:PropertyShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:targetObjectsOf time:equals ;
+	sh:path time:equals ;
 	.
 
 sh-time-ed:equals-subjects-shape
 	a sh:NodeShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time-ed:equals-subjects-equals-shape ;
 	sh:targetSubjectsOf time:equals ;
 	.
 
-sh-time-ed:hasInside-objects-shape
-	a sh:NodeShape ;
+sh-time-ed:hasInside-subjects-hasInside-shape
+	a sh:PropertyShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:targetObjectsOf time:hasInside ;
+	sh:path time:hasInside ;
 	.
 
 sh-time-ed:hasInside-subjects-shape
 	a sh:NodeShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:property [
-		a sh:PropertyPath ;
-		sh:disjoint time:equals ;
-		sh:path time:hasInside ;
-	] ;
+	sh:property
+		sh-time-ed:hasInside-subjects-hasInside-shape ,
+		[
+			a sh:PropertyPath ;
+			sh:disjoint time:equals ;
+			sh:path time:hasInside ;
+		]
+		;
 	sh:targetSubjectsOf time:hasInside ;
 	.
 
-sh-time-ed:notDisjoint-objects-shape
-	a sh:NodeShape ;
+sh-time-ed:notDisjoint-subjects-notDisjoint-shape
+	a sh:PropertyShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:targetObjectsOf time:notDisjoint ;
+	sh:path time:notDisjoint ;
 	.
 
 sh-time-ed:notDisjoint-subjects-shape
 	a sh:NodeShape ;
 	sh:class time:TemporalEntity ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:property [
-		a sh:PropertyShape ;
-		sh:disjoint time:disjoint ;
-		sh:path time:notDisjoint ;
-	] ;
+	sh:property
+		sh-time-ed:notDisjoint-subjects-notDisjoint-shape ,
+		[
+			a sh:PropertyShape ;
+			sh:disjoint time:disjoint ;
+			sh:path time:notDisjoint ;
+		]
+		;
 	sh:targetSubjectsOf time:notDisjoint ;
 	.
 
