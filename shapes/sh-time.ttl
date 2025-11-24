@@ -201,6 +201,22 @@ sh-time:intervalContains-subjects-shape
 	sh:targetSubjectsOf time:intervalContains ;
 	.
 
+sh-time:intervalDisjoint-subjects-intervalDisjoint-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalDisjoint ;
+	.
+
+sh-time:intervalDisjoint-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalDisjoint-subjects-intervalDisjoint-shape ;
+	sh:targetSubjectsOf time:intervalDisjoint ;
+	.
+
 sh-time:intervalDuring-subjects-intervalDuring-shape
 	a sh:PropertyShape ;
 	sh:class time:ProperInterval ;
@@ -232,6 +248,38 @@ sh-time:intervalEquals-subjects-shape
 	sh:targetSubjectsOf time:intervalEquals ;
 	.
 
+sh-time:intervalFinishedBy-subjects-intervalFinishedBy-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalFinishedBy ;
+	.
+
+sh-time:intervalFinishedBy-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalFinishedBy-subjects-intervalFinishedBy-shape ;
+	sh:targetSubjectsOf time:intervalFinishedBy ;
+	.
+
+sh-time:intervalFinishes-subjects-intervalFinishes-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalFinishes ;
+	.
+
+sh-time:intervalFinishes-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalFinishes-subjects-intervalFinishes-shape ;
+	sh:targetSubjectsOf time:intervalFinishes ;
+	.
+
 sh-time:intervalIn-subjects-intervalIn-shape
 	a sh:PropertyShape ;
 	sh:class time:ProperInterval ;
@@ -246,5 +294,101 @@ sh-time:intervalIn-subjects-shape
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:property sh-time:intervalIn-subjects-intervalIn-shape ;
 	sh:targetSubjectsOf time:intervalIn ;
+	.
+
+sh-time:intervalMeets-subjects-intervalMeets-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalMeets ;
+	.
+
+sh-time:intervalMeets-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalMeets-subjects-intervalMeets-shape ;
+	sh:targetSubjectsOf time:intervalMeets ;
+	.
+
+sh-time:intervalMetBy-subjects-intervalMetBy-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalMetBy ;
+	.
+
+sh-time:intervalMetBy-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalMetBy-subjects-intervalMetBy-shape ;
+	sh:targetSubjectsOf time:intervalMetBy ;
+	.
+
+sh-time:intervalOverlappedBy-subjects-intervalOverlappedBy-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalOverlappedBy ;
+	.
+
+sh-time:intervalOverlappedBy-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalOverlappedBy-subjects-intervalOverlappedBy-shape ;
+	sh:targetSubjectsOf time:intervalOverlappedBy ;
+	.
+
+sh-time:intervalOverlaps-subjects-intervalOverlaps-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalOverlaps ;
+	.
+
+sh-time:intervalOverlaps-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalOverlaps-subjects-intervalOverlaps-shape ;
+	sh:targetSubjectsOf time:intervalOverlaps ;
+	.
+
+sh-time:intervalStartedBy-subjects-intervalStartedBy-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalStartedBy ;
+	.
+
+sh-time:intervalStartedBy-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalStartedBy-subjects-intervalStartedBy-shape ;
+	sh:targetSubjectsOf time:intervalStartedBy ;
+	.
+
+sh-time:intervalStarts-subjects-intervalStarts-shape
+	a sh:PropertyShape ;
+	sh:class time:ProperInterval ;
+	sh:disjoint time:intervalEquals ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:path time:intervalStarts ;
+	.
+
+sh-time:intervalStarts-subjects-shape
+	a sh:NodeShape ;
+	sh:class time:ProperInterval ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:property sh-time:intervalStarts-subjects-intervalStarts-shape ;
+	sh:targetSubjectsOf time:intervalStarts ;
 	.
 
