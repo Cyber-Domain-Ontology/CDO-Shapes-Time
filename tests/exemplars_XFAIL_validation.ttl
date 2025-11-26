@@ -12,6 +12,26 @@
 	sh:result
 		[
 			a sh:ValidationResult ;
+			sh:focusNode <http://example.org/kb/ProperInterval-b8c09ec7-fd2c-4253-9707-5346d9e9ad36> ;
+			sh:resultMessage "Value of kb:ProperInterval-b8c09ec7-fd2c-4253-9707-5346d9e9ad36->time:intervalEquals == kb:ProperInterval-e8f4521c-1272-4eda-b2ae-122f8bd65e26" ;
+			sh:resultPath time:intervalIn ;
+			sh:resultSeverity sh:Violation ;
+			sh:sourceConstraintComponent sh:DisjointConstraintComponent ;
+			sh:sourceShape sh-time:intervalIn-subjects-intervalIn-shape ;
+			sh:value <http://example.org/kb/ProperInterval-e8f4521c-1272-4eda-b2ae-122f8bd65e26> ;
+		] ,
+		[
+			a sh:ValidationResult ;
+			sh:focusNode <http://example.org/kb/ProperInterval-b8c09ec7-fd2c-4253-9707-5346d9e9ad36> ;
+			sh:resultMessage "Value of kb:ProperInterval-b8c09ec7-fd2c-4253-9707-5346d9e9ad36->time:intervalIn == kb:ProperInterval-e8f4521c-1272-4eda-b2ae-122f8bd65e26" ;
+			sh:resultPath time:intervalEquals ;
+			sh:resultSeverity sh:Violation ;
+			sh:sourceConstraintComponent sh:DisjointConstraintComponent ;
+			sh:sourceShape sh-time:intervalEquals-subjects-intervalEquals-shape ;
+			sh:value <http://example.org/kb/ProperInterval-e8f4521c-1272-4eda-b2ae-122f8bd65e26> ;
+		] ,
+		[
+			a sh:ValidationResult ;
 			sh:focusNode <http://example.org/kb/Thing-0ed0d73d-4057-421b-9706-542cd7e26165> ;
 			sh:resultMessage "Value does not have class time:TemporalEntity" ;
 			sh:resultPath time:before ;
