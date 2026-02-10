@@ -15,6 +15,11 @@
 	owl:imports <http://example.org/shapes/sh-time> ;
 	.
 
+kb:GeneralDurationDescription-89366d8a-3c9f-4941-8e70-809661c0458e
+	a time:GeneralDurationDescription ;
+	rdfs:seeAlso sh-time:hasDurationDescription-subjects-hasDurationDescription-shape ;
+	.
+
 kb:Instant-0180e20a-3fc3-48db-a5bf-2b53246638e8
 	a time:Instant ;
 	.
@@ -186,6 +191,16 @@ kb:ProperInterval-ec8303f4-2862-41b7-b6ee-b6f3f6e8251e
 	a time:ProperInterval ;
 	.
 
+kb:TRS-201dda5e-3b04-49d6-94fe-17093795e97c
+	a time:TRS ;
+	rdfs:seeAlso sh-time:hasTRS-subjects-hasTRS-shape ;
+	.
+
+kb:TemporalDuration-64997297-424c-4283-b38f-59b87afc5926
+	a time:TemporalDuration ;
+	rdfs:seeAlso sh-time:hasTemporalDuration-subjects-hasTemporalDuration-shape ;
+	.
+
 kb:TemporalEntity-00947113-902d-4550-9c2c-f6175b31ef19
 	a time:Interval ;
 	rdfs:comment "This TemporalEntity can be entailed as a ProperInterval from having, in asserted order, an instant beginning it and ending it."@en ;
@@ -199,10 +214,23 @@ kb:TemporalEntity-17179034-999d-4381-9eee-befcf25284d6
 	time:intervalFinishedBy kb:TemporalEntity-a24ddc06-18c1-4433-93ac-bfa3dc539ff1 ;
 	.
 
+kb:TemporalEntity-171850e8-61bd-4ad1-87a8-7d4d9e0bdf60
+	a time:TemporalEntity ;
+	rdfs:seeAlso sh-time:hasTemporalDuration-subjects-shape ;
+	time:hasTemporalDuration kb:TemporalDuration-64997297-424c-4283-b38f-59b87afc5926 ;
+	.
+
 kb:TemporalEntity-178cbe95-81ea-4c71-bf3d-7b12c50df027
 	a time:ProperInterval ;
 	rdfs:seeAlso sh-time:intervalFinishes-subjects-shape ;
 	time:intervalFinishes kb:TemporalEntity-bd69ca65-d75c-4834-99e6-ee27376c885f ;
+	.
+
+kb:TemporalEntity-276d876d-2725-47e6-b8de-d121d0bbd741
+	a owl:Thing ;
+	rdfs:comment "This node is intentionally untyped (/vaguely typed).  RDFS or OWL entailment will entail that this is a subject of the superproperty time:hasTemporalDuration, and thus would trigger hasTemporalDuration-subjects review; but entailment will also add the time:TemporalEntity class-membership from the domain of time:hasTemporalDuration."@en ;
+	rdfs:seeAlso sh-time:hasDurationDescription-subjects-shape ;
+	time:hasDurationDescription kb:GeneralDurationDescription-89366d8a-3c9f-4941-8e70-809661c0458e ;
 	.
 
 kb:TemporalEntity-58be1beb-abf1-472f-83f1-3cffb1d713b1
@@ -300,6 +328,12 @@ kb:TemporalEntity-de91e867-1b88-4605-bc6f-572f992ed95a
 kb:TemporalEntity-e3b7c74a-b16a-47d5-a44f-647bc7c4a8bd
 	a time:ProperInterval ;
 	rdfs:seeAlso sh-time:intervalStarts-subjects-intervalStarts-shape ;
+	.
+
+kb:TemporalPosition-6a12acc0-7008-4f07-8ed0-2f1451f73f4e
+	a time:TemporalPosition ;
+	rdfs:seeAlso sh-time:hasTRS-subjects-shape ;
+	time:hasTRS kb:TRS-201dda5e-3b04-49d6-94fe-17093795e97c ;
 	.
 
 kb:Thing-6e734b5d-21fc-4604-91b3-015da5aeac76
