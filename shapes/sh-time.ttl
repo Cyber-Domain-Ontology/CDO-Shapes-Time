@@ -111,6 +111,7 @@ sh-time:TemporalPosition-hasTRS-shape
 
 sh-time:TemporalPosition-shape
 	a sh:NodeShape ;
+	sh:property sh-time:TemporalPosition-hasTRS-shape ;
 	sh:targetClass time:TemporalPosition ;
 	.
 
