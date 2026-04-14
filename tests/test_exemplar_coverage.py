@@ -38,13 +38,8 @@ def test_exemplar_coverage() -> None:
     tbox_graph = Graph()
     combined_graph = Graph()
 
-    for filepath in (top_srcdir / "shapes").iterdir():
-        if filepath.name.startswith("."):
-            # Skip quality control test artifacts.
-            continue
-        if filepath.name.endswith(".ttl"):
-            logging.debug("Loading shapes graph %r.", filepath)
-            shapes_graph.parse(filepath)
+    local_shapes_filepath = top_srcdir / "shapes" / "generated-local.ttl"
+    shapes_graph.parse(local_shapes_filepath)
     logging.debug("len(shapes_graph) = %d.", len(shapes_graph))
 
     monolithic_filepath = srcdir / "monolithic.ttl"

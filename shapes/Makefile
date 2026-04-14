@@ -23,7 +23,8 @@ uco_srcdir := $(top_srcdir)/dependencies/UCO
 ttl_basenames := $(wildcard sh-*.ttl)
 
 all: \
-  catalog-v001.xml
+  catalog-v001.xml \
+  generated-local.ttl
 
 catalog-v001.xml: \
   $(top_srcdir)/.venv.done.log \
@@ -48,4 +49,15 @@ check: \
 clean:
 	@rm -f \
 	  _* \
-	  catalog-v001.xml
+	  catalog-v001.xml \
+	  generated-*
+
+generated-local.ttl: \
+  $(top_srcdir)/.venv.done.log \
+  $(ttl_basenames)
+	source $(top_srcdir)/venv/bin/activate \
+	  && rdfpipe \
+	    --output-format turtle \
+	    $(ttl_basenames) \
+	    > _$@
+	mv _$@ $@

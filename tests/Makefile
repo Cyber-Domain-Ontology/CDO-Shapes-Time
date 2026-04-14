@@ -37,6 +37,7 @@ all: \
 	touch $@
 
 .pytest.done.log: \
+  $(top_srcdir)/shapes/generated-local.ttl \
   concepts_excused.txt \
   exemplars.ttl \
   monolithic.ttl \
