@@ -18,32 +18,20 @@ SHELL := /bin/bash
 
 top_srcdir := $(shell cd .. ; pwd)
 
+generated_dependencies_ttls := \
+  $(top_srcdir)/dependencies/example.ttl
+
 uco_srcdir := $(top_srcdir)/dependencies/UCO
-
-RDF_TOOLKIT_JAR := $(uco_srcdir)/lib/rdf-toolkit.jar
-
-# TODO: This variable lists files for Make to generate and delete on
-# 'make clean' calls.  This variable should be adapted to list each file
-# to normalize.
-# Note that to support the catalog-v001.xml preconditions, this list
-# must only be files in this directory.
-normalized_ttls := \
-  example.ttl
 
 all: \
   catalog-v001.xml
 
-$(RDF_TOOLKIT_JAR):
-	@echo "DEBUG:dependencies/Makefile:top_srcdir=$(top_srcdir)" >&2
-	@echo "ERROR:dependencies/Makefile:rdf-toolkit.jar not found.  Did you run `make` from the top source directory?" >&2
-	@test -r $@
-
 catalog-v001.xml: \
-  $(normalized_ttls) \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/etc/domain_directories.tsv \
   $(top_srcdir)/etc/dependency_files.tsv \
-  $(top_srcdir)/src/create-catalog-v001.xml.py
+  $(top_srcdir)/src/create-catalog-v001.xml.py \
+  generated-dependencies.ttl
 	rm -f _$@
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 $(top_srcdir)/src/create-catalog-v001.xml.py \
@@ -51,31 +39,31 @@ catalog-v001.xml: \
 	    $(top_srcdir)/etc/domain_directories.tsv \
 	    $(top_srcdir)/etc/dependency_files.tsv \
 	    "$(top_srcdir)" \
-	    $(normalized_ttls)
+	    generated-dependencies.ttl
 	mv _$@ $@
 
 check: \
-  catalog-v001.xml
+  all
 
 clean:
 	@rm -f \
-	  $(normalized_ttls) \
-	  catalog-v001.xml
+	  .*.done.log \
+	  _* \
+	  catalog-v001.xml \
+	  generated-*.ttl
 
-# TODO: Adapt this recipe to normalize a submodule's file, or downloaded
-# file, in the same manner as CDO ontologies are normalized.
-example.ttl: \
-  example/example.owl \
-  $(RDF_TOOLKIT_JAR) \
-  $(top_srcdir)/.venv.done.log
+generated-dependencies.ttl: \
+  $(generated_dependencies_ttls) \
+  $(top_srcdir)/.venv.done.log \
+  $(uco_srcdir)/ontology/owl/owl.ttl
+	source $(top_srcdir)/venv/bin/activate \
+	  && rdfpipe \
+	    --output-format turtle \
+	    $(generated_dependencies_ttls) \
+	    > _$@
+	# Check for conflicts when merging ontology files.
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
-	    --shacl UCO/ontology/owl/owl.ttl \
-	    $<
-	java -jar $(RDF_TOOLKIT_JAR) \
-	  --inline-blank-nodes \
-	  --source $< \
-	  --source-format rdf-xml \
-	  --target _$@ \
-	  --target-format turtle
+	    --shacl $(uco_srcdir)/ontology/owl/owl.ttl \
+	    _$@
 	mv _$@ $@

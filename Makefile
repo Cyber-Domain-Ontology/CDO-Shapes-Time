@@ -24,9 +24,11 @@ all: \
 
 .PHONY: \
   all-dependencies \
+  all-ontology \
   all-shapes \
   check-dependencies \
   check-mypy \
+  check-ontology \
   check-shapes \
   check-tests \
   check-supply-chain \
@@ -34,6 +36,7 @@ all: \
   check-supply-chain-pre-commit \
   check-supply-chain-submodules \
   clean-dependencies \
+  clean-ontology \
   clean-shapes \
   clean-tests
 
@@ -100,8 +103,13 @@ all-dependencies: \
 	$(MAKE) \
 	  --directory dependencies
 
-all-shapes: \
+all-ontology: \
   all-dependencies
+	$(MAKE) \
+	  --directory ontology
+
+all-shapes: \
+  all-ontology
 	$(MAKE) \
 	  --directory shapes
 
@@ -125,8 +133,16 @@ check-mypy: \
 	    --strict \
 	    .
 
+check-ontology: \
+  all-ontology \
+  check-dependencies
+	$(MAKE) \
+	  --directory ontology \
+	  check
+
 check-shapes: \
-  all-shapes
+  all-shapes \
+  check-ontology
 	$(MAKE) \
 	  --directory shapes \
 	  check
@@ -197,7 +213,6 @@ check-supply-chain-submodules: \
 	  dependencies
 
 check-tests: \
-  check-dependencies \
   check-shapes
 	$(MAKE) \
 	  --directory tests \
@@ -206,6 +221,7 @@ check-tests: \
 clean: \
   clean-tests \
   clean-shapes \
+  clean-ontology \
   clean-dependencies
 	@rm -f \
 	  .*.done.log
@@ -213,6 +229,11 @@ clean: \
 clean-dependencies:
 	@$(MAKE) \
 	  --directory dependencies \
+	  clean
+
+clean-ontology:
+	@$(MAKE) \
+	  --directory ontology \
 	  clean
 
 clean-shapes:

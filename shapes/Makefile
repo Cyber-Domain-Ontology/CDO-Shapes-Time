@@ -20,10 +20,20 @@ top_srcdir := $(shell cd .. ; pwd)
 
 uco_srcdir := $(top_srcdir)/dependencies/UCO
 
+# This list is all of the graph files that contain shapes graphs linked
+# by owl:imports.  Non-shapes graphs are delegated to
+# ../ontology/generated-dependencies.ttl.
+generated_dependencies_ttls :=
+
 ttl_basenames := $(wildcard sh-*.ttl)
 
 all: \
   catalog-v001.xml
+
+# .empty.ttl is retained to guarantee rdfpipe takes at least one file as
+# an input when building generated-local.ttl.
+.empty.ttl:
+	test -r $@
 
 catalog-v001.xml: \
   $(top_srcdir)/.venv.done.log \
@@ -52,6 +62,27 @@ clean:
 	  catalog-v001.xml \
 	  generated-*
 
+generated-dependencies.ttl: \
+  $(generated_dependencies_ttls) \
+  $(top_srcdir)/.venv.done.log \
+  $(top_srcdir)/ontology/generated-dependencies.ttl \
+  $(uco_srcdir)/tests/thing.ttl \
+  .empty.ttl
+	source $(top_srcdir)/venv/bin/activate \
+	  && rdfpipe \
+	    --output-format turtle \
+	    $(generated_dependencies_ttls) \
+	    .empty.ttl
+	    > _$@ \
+	# Check for conflicts when merging shape files.
+	source $(top_srcdir)/venv/bin/activate \
+	  && pyshacl \
+	    --metashacl \
+	    --ont-graph $(top_srcdir)/ontology/generated-dependencies.ttl \
+	    --shacl _$@ \
+	    $(uco_srcdir)/tests/thing.ttl
+	mv _$@ $@
+
 generated-local.ttl: \
   $(top_srcdir)/.venv.done.log \
   $(ttl_basenames)
@@ -63,18 +94,20 @@ generated-local.ttl: \
 	mv _$@ $@
 
 generated-shapes.ttl: \
-  $(top_srcdir)/dependencies/imports-transitive.ttl \
+  $(top_srcdir)/ontology/generated-dependencies.ttl \
+  generated-dependencies.ttl \
   generated-local.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
+	    generated-dependencies.ttl \
 	    generated-local.ttl \
 	    > _$@
 	# Check for conflicts when merging shape files.
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
 	    --metashacl \
-	    --ont-graph $(top_srcdir)/dependencies/imports-transitive.ttl \
+	    --ont-graph $(top_srcdir)/ontology/generated-dependencies.ttl \
 	    --shacl _$@ \
 	    $(uco_srcdir)/tests/thing.ttl
 	mv _$@ $@

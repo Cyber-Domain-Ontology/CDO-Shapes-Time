@@ -81,13 +81,13 @@ generated-exemplars-expanded.ttl: \
 
 generated-monolithic.ttl: \
   $(top_srcdir)/.venv.done.log \
-  $(top_srcdir)/dependencies/imports-transitive.ttl \
+  $(top_srcdir)/ontology/generated-dependencies.ttl \
   $(top_srcdir)/shapes/generated-shapes.ttl \
   $(uco_srcdir)/ontology/owl/owl.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
-	    $(top_srcdir)/dependencies/imports-transitive.ttl \
+	    $(top_srcdir)/ontology/generated-dependencies.ttl \
 	    $(top_srcdir)/shapes/generated-shapes.ttl \
 	    $(uco_srcdir)/ontology/owl/owl.ttl \
 	    > _$@
