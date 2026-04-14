@@ -20,12 +20,14 @@ PYTHON3 ?= python3
 
 all: \
   .venv-pre-commit/var/.pre-commit-built.log \
-  all-shapes
+  all-shapes \
+  all-tests
 
 .PHONY: \
   all-dependencies \
   all-ontology \
   all-shapes \
+  all-tests \
   check-dependencies \
   check-mypy \
   check-ontology \
@@ -112,6 +114,11 @@ all-shapes: \
   all-ontology
 	$(MAKE) \
 	  --directory shapes
+
+all-tests: \
+  all-ontology
+	$(MAKE) \
+	  --directory tests
 
 check: \
   .venv-pre-commit/var/.pre-commit-built.log \
@@ -213,6 +220,7 @@ check-supply-chain-submodules: \
 	  dependencies
 
 check-tests: \
+  all-tests \
   check-shapes
 	$(MAKE) \
 	  --directory tests \
