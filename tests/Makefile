@@ -20,8 +20,6 @@ top_srcdir := $(shell cd .. ; pwd)
 
 uco_srcdir := $(top_srcdir)/dependencies/UCO
 
-shape_ttls := $(wildcard $(top_srcdir)/shapes/sh-*.ttl)
-
 all: \
   generated-exemplars-expanded.ttl
 
@@ -84,13 +82,13 @@ generated-exemplars-expanded.ttl: \
 generated-monolithic.ttl: \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/dependencies/imports-transitive.ttl \
-  $(shape_ttls) \
+  $(top_srcdir)/shapes/generated-shapes.ttl \
   $(uco_srcdir)/ontology/owl/owl.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
 	    $(top_srcdir)/dependencies/imports-transitive.ttl \
-	    $(shape_ttls) \
+	    $(top_srcdir)/shapes/generated-shapes.ttl \
 	    $(uco_srcdir)/ontology/owl/owl.ttl \
 	    > _$@
 	source $(top_srcdir)/venv/bin/activate \

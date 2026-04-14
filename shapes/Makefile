@@ -23,15 +23,15 @@ uco_srcdir := $(top_srcdir)/dependencies/UCO
 ttl_basenames := $(wildcard sh-*.ttl)
 
 all: \
-  catalog-v001.xml \
-  generated-local.ttl
+  catalog-v001.xml
 
 catalog-v001.xml: \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/etc/domain_directories.tsv \
   $(top_srcdir)/etc/dependency_files.tsv \
   $(top_srcdir)/src/create-catalog-v001.xml.py \
-  $(uco_srcdir)/ontology/uco/master/catalog-v001.xml
+  $(uco_srcdir)/ontology/uco/master/catalog-v001.xml \
+  generated-shapes.ttl
 	rm -f _$@
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 $(top_srcdir)/src/create-catalog-v001.xml.py \
@@ -40,7 +40,7 @@ catalog-v001.xml: \
 	    $(top_srcdir)/etc/domain_directories.tsv \
 	    $(top_srcdir)/etc/dependency_files.tsv \
 	    "$(top_srcdir)" \
-	    $(ttl_basenames)
+	    generated-shapes.ttl
 	mv _$@ $@
 
 check: \
@@ -60,4 +60,21 @@ generated-local.ttl: \
 	    --output-format turtle \
 	    $(ttl_basenames) \
 	    > _$@
+	mv _$@ $@
+
+generated-shapes.ttl: \
+  $(top_srcdir)/dependencies/imports-transitive.ttl \
+  generated-local.ttl
+	source $(top_srcdir)/venv/bin/activate \
+	  && rdfpipe \
+	    --output-format turtle \
+	    generated-local.ttl \
+	    > _$@
+	# Check for conflicts when merging shape files.
+	source $(top_srcdir)/venv/bin/activate \
+	  && pyshacl \
+	    --metashacl \
+	    --ont-graph $(top_srcdir)/dependencies/imports-transitive.ttl \
+	    --shacl _$@ \
+	    $(uco_srcdir)/tests/thing.ttl
 	mv _$@ $@
