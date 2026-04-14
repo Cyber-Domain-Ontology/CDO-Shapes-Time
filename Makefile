@@ -32,7 +32,10 @@ all: \
   check-supply-chain \
   check-supply-chain-cdo-shapes \
   check-supply-chain-pre-commit \
-  check-supply-chain-submodules
+  check-supply-chain-submodules \
+  clean-dependencies \
+  clean-shapes \
+  clean-tests
 
 # This Make target should be left in place, even if it does nothing.  It
 # has been found beneficial with profiles that have a submodule-based
@@ -200,15 +203,24 @@ check-tests: \
 	  --directory tests \
 	  check
 
-clean:
-	@$(MAKE) \
-	  --directory tests \
-	  clean
-	@$(MAKE) \
-	  --directory shapes \
-	  clean
+clean: \
+  clean-tests \
+  clean-shapes \
+  clean-dependencies
+	@rm -f \
+	  .*.done.log
+
+clean-dependencies:
 	@$(MAKE) \
 	  --directory dependencies \
 	  clean
-	@rm -f \
-	  .*.done.log
+
+clean-shapes:
+	@$(MAKE) \
+	  --directory shapes \
+	  clean
+
+clean-tests:
+	@$(MAKE) \
+	  --directory tests \
+	  clean
