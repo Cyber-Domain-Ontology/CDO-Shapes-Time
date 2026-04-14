@@ -28,6 +28,7 @@ all: \
   check-dependencies \
   check-mypy \
   check-shapes \
+  check-tests \
   check-supply-chain \
   check-supply-chain-cdo-shapes \
   check-supply-chain-pre-commit \
@@ -104,11 +105,7 @@ all-shapes: \
 check: \
   .venv-pre-commit/var/.pre-commit-built.log \
   check-mypy \
-  check-dependencies \
-  check-shapes
-	$(MAKE) \
-	  --directory tests \
-	  check
+  check-tests
 
 check-dependencies: \
   all-dependencies
@@ -195,6 +192,13 @@ check-supply-chain-submodules: \
 	  --exit-code \
 	  --ignore-submodules=dirty \
 	  dependencies
+
+check-tests: \
+  check-dependencies \
+  check-shapes
+	$(MAKE) \
+	  --directory tests \
+	  check
 
 clean:
 	@$(MAKE) \
