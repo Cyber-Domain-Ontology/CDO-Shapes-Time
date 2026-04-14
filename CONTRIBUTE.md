@@ -19,6 +19,7 @@ To create a new shapes repository for the ontology with short name `Foo`, we sug
    1. Update the [README](README.md) to change the name of the repository.  (Minimally, the title line should be revised.)
    1. Addressing the "TODOs" in [`dependencies/Makefile`](dependencies/Makefile)
    1. Updating the TSV files under [`etc/`](etc/).  This is to support local-file editing with some ontology tooling (developed for [UCO Issue 449](https://github.com/ucoProject/UCO/issues/449)).  [These lines](https://github.com/ucoProject/UCO/blob/1.2.0/src/create-catalog-v001.xml.py#L68-L77) describe the file formats.
+   1. Updating the dependency list in the `normalized_ttls` variable near the top of [`dependencies/Makfile`].
    1. Renaming the [shapes file under `/shapes`](shapes/sh-example.ttl), and updating its contents.
    1. Updating the [exemplars file under `/tests`](tests/exemplars.ttl) to use all classes and properties reviewed in the repository-local shapes graph (i.e., the file `/shapes/sh-example.ttl` became).
    1. After all of the above edits are completed, running `make check` from the top source directory should confirm Turtle files are normalized and unit tests pass.
