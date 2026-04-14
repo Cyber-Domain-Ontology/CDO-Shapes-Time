@@ -85,7 +85,8 @@ exemplars-expanded.ttl: \
 monolithic.ttl: \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/dependencies/imports-transitive.ttl \
-  $(shape_ttls)
+  $(shape_ttls) \
+  $(uco_srcdir)/ontology/owl/owl.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
