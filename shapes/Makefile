@@ -21,9 +21,12 @@ top_srcdir := $(shell cd .. ; pwd)
 uco_srcdir := $(top_srcdir)/dependencies/UCO
 
 # This list is all of the graph files that contain shapes graphs linked
-# by owl:imports.  Non-shapes graphs are delegated to
+# by owl:imports, plus the UCO OWL DL shapes.  The UCO OWL DL shapes are
+# not linked by owl:imports, to allow for substituting experimental
+# shapes or removing the dependency.  Non-shapes graphs are delegated to
 # ../ontology/generated-dependencies.ttl.
-generated_dependencies_ttls :=
+generated_dependencies_ttls := \
+  $(uco_srcdir)/ontology/owl/owl.ttl
 
 ttl_basenames := $(wildcard sh-*.ttl)
 

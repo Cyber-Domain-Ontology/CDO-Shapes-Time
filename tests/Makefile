@@ -90,7 +90,6 @@ generated-monolithic.ttl: \
 	    --output-format turtle \
 	    $(top_srcdir)/ontology/generated-ontology.ttl \
 	    $(top_srcdir)/shapes/generated-shapes.ttl \
-	    $(uco_srcdir)/ontology/owl/owl.ttl \
 	    > _$@
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
