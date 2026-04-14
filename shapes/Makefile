@@ -75,8 +75,8 @@ generated-dependencies.ttl: \
 	  && rdfpipe \
 	    --output-format turtle \
 	    $(generated_dependencies_ttls) \
-	    .empty.ttl
-	    > _$@ \
+	    .empty.ttl \
+	    > _$@
 	# Check for conflicts when merging shape files.
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
