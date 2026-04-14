@@ -55,7 +55,7 @@ catalog-v001.xml: \
 	mv _$@ $@
 
 check: \
-  catalog-v001.xml
+  all
 
 clean:
 	@rm -f \
