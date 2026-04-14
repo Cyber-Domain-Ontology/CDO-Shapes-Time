@@ -94,7 +94,7 @@ generated-local.ttl: \
 	mv _$@ $@
 
 generated-shapes.ttl: \
-  $(top_srcdir)/ontology/generated-dependencies.ttl \
+  $(top_srcdir)/ontology/generated-ontology.ttl \
   generated-dependencies.ttl \
   generated-local.ttl
 	source $(top_srcdir)/venv/bin/activate \
@@ -107,7 +107,7 @@ generated-shapes.ttl: \
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
 	    --metashacl \
-	    --ont-graph $(top_srcdir)/ontology/generated-dependencies.ttl \
+	    --ont-graph $(top_srcdir)/ontology/generated-ontology.ttl \
 	    --shacl _$@ \
 	    $(uco_srcdir)/tests/thing.ttl
 	mv _$@ $@

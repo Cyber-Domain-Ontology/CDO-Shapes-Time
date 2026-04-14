@@ -38,7 +38,7 @@ def test_exemplar_coverage() -> None:
     tbox_graph = Graph()
     combined_graph = Graph()
 
-    ontology_filepath = top_srcdir / "ontology" / "generated-dependencies.ttl"
+    ontology_filepath = top_srcdir / "ontology" / "generated-ontology.ttl"
     local_shapes_filepath = top_srcdir / "shapes" / "generated-local.ttl"
 
     shapes_graph.parse(local_shapes_filepath)
