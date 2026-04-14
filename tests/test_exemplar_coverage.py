@@ -42,7 +42,7 @@ def test_exemplar_coverage() -> None:
     shapes_graph.parse(local_shapes_filepath)
     logging.debug("len(shapes_graph) = %d.", len(shapes_graph))
 
-    monolithic_filepath = srcdir / "monolithic.ttl"
+    monolithic_filepath = srcdir / "generated-monolithic.ttl"
     tbox_graph.parse(monolithic_filepath)
 
     exemplar_filepath = srcdir / "exemplars.ttl"

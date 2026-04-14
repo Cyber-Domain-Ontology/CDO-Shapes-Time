@@ -23,24 +23,24 @@ uco_srcdir := $(top_srcdir)/dependencies/UCO
 shape_ttls := $(wildcard $(top_srcdir)/shapes/sh-*.ttl)
 
 all: \
-  exemplars-expanded.ttl
+  generated-exemplars-expanded.ttl
 
 .pyshacl.done.log: \
-  exemplars-expanded.ttl \
-  monolithic.ttl
+  generated-exemplars-expanded.ttl \
+  generated-monolithic.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
 	    --metashacl \
-	    --ont-graph monolithic.ttl \
-	    --shacl monolithic.ttl \
-	    exemplars-expanded.ttl
+	    --ont-graph generated-monolithic.ttl \
+	    --shacl generated-monolithic.ttl \
+	    generated-exemplars-expanded.ttl
 	touch $@
 
 .pytest.done.log: \
   $(top_srcdir)/shapes/generated-local.ttl \
   concepts_excused.txt \
   exemplars.ttl \
-  monolithic.ttl \
+  generated-monolithic.ttl \
   test_exemplar_coverage.py
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 -m doctest \
@@ -57,24 +57,22 @@ check: \
 clean:
 	@rm -f \
 	  .*.done.log \
-	  exemplars-entailment.ttl \
-	  exemplars-expanded.ttl \
-	  monolithic.ttl
+	  generated-*
 
-exemplars-entailment.ttl: \
+generated-exemplars-entailment.ttl: \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/src/entail.py \
   exemplars.ttl \
-  monolithic.ttl
+  generated-monolithic.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 $(top_srcdir)/src/entail.py \
 	    _$@ \
 	    exemplars.ttl \
-	    monolithic.ttl
+	    generated-monolithic.ttl
 	mv _$@ $@
 
-exemplars-expanded.ttl: \
-  exemplars-entailment.ttl
+generated-exemplars-expanded.ttl: \
+  generated-exemplars-entailment.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
@@ -83,7 +81,7 @@ exemplars-expanded.ttl: \
 	    > _$@
 	mv _$@ $@
 
-monolithic.ttl: \
+generated-monolithic.ttl: \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/dependencies/imports-transitive.ttl \
   $(shape_ttls) \
