@@ -24,21 +24,20 @@ all: \
   generated-exemplars-expanded.ttl
 
 .pyshacl.done.log: \
-  generated-exemplars-expanded.ttl \
-  generated-monolithic.ttl
+  $(top_srcdir)/shapes/generated-shapes.ttl \
+  generated-exemplars-expanded.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
-	    --metashacl \
-	    --ont-graph generated-monolithic.ttl \
-	    --shacl generated-monolithic.ttl \
+	    --ont-graph $(top_srcdir)/ontology/generated-dependencies.ttl \
+	    --shacl $(top_srcdir)/shapes/generated-shapes.ttl \
 	    generated-exemplars-expanded.ttl
 	touch $@
 
 .pytest.done.log: \
+  $(top_srcdir)/ontology/generated-dependencies.ttl \
   $(top_srcdir)/shapes/generated-local.ttl \
   concepts_excused.txt \
   exemplars.ttl \
-  generated-monolithic.ttl \
   test_exemplar_coverage.py
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 -m doctest \
@@ -49,6 +48,7 @@ all: \
 	touch $@
 
 check: \
+  generated-monolithic.ttl \
   .pytest.done.log \
   .pyshacl.done.log
 
@@ -59,14 +59,14 @@ clean:
 
 generated-exemplars-entailment.ttl: \
   $(top_srcdir)/.venv.done.log \
+  $(top_srcdir)/ontology/generated-dependencies.ttl \
   $(top_srcdir)/src/entail.py \
-  exemplars.ttl \
-  generated-monolithic.ttl
+  exemplars.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 $(top_srcdir)/src/entail.py \
 	    _$@ \
 	    exemplars.ttl \
-	    generated-monolithic.ttl
+	    $(top_srcdir)/ontology/generated-dependencies.ttl
 	mv _$@ $@
 
 generated-exemplars-expanded.ttl: \
@@ -79,6 +79,7 @@ generated-exemplars-expanded.ttl: \
 	    > _$@
 	mv _$@ $@
 
+# Cross-review OWL and SHACL specifications together.
 generated-monolithic.ttl: \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/ontology/generated-dependencies.ttl \
