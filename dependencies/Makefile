@@ -28,7 +28,7 @@ RDF_TOOLKIT_JAR := $(uco_srcdir)/lib/rdf-toolkit.jar
 # Note that to support the catalog-v001.xml preconditions, this list
 # must only be files in this directory.
 normalized_ttls := \
-  example.ttl
+  formatted-example.ttl
 
 all: \
   catalog-v001.xml
@@ -63,8 +63,8 @@ clean:
 	  catalog-v001.xml
 
 # TODO: Adapt this recipe to normalize a submodule's file, or downloaded
-# file, in the same manner as CDO ontologies are normalized.
-example.ttl: \
+# file, in the same manner as CDO ontologies are syntax-normalized.
+formatted-example.ttl: \
   example/example.owl \
   $(RDF_TOOLKIT_JAR) \
   $(top_srcdir)/.venv.done.log
