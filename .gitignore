@@ -4,4 +4,5 @@
 .DS_Store
 .venv-pre-commit
 __pycache__
+generated-*
 venv

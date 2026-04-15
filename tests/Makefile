@@ -20,26 +20,24 @@ top_srcdir := $(shell cd .. ; pwd)
 
 uco_srcdir := $(top_srcdir)/dependencies/UCO
 
-shape_ttls := $(wildcard $(top_srcdir)/shapes/sh-*.ttl)
-
 all: \
-  exemplars-expanded.ttl
+  generated-exemplars-expanded.ttl
 
 .pyshacl.done.log: \
-  exemplars-expanded.ttl \
-  monolithic.ttl
+  $(top_srcdir)/shapes/generated-shapes.ttl \
+  generated-exemplars-expanded.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
-	    --metashacl \
-	    --ont-graph monolithic.ttl \
-	    --shacl monolithic.ttl \
-	    exemplars-expanded.ttl
+	    --ont-graph $(top_srcdir)/ontology/generated-ontology.ttl \
+	    --shacl $(top_srcdir)/shapes/generated-shapes.ttl \
+	    generated-exemplars-expanded.ttl
 	touch $@
 
 .pytest.done.log: \
+  $(top_srcdir)/ontology/generated-ontology.ttl \
+  $(top_srcdir)/shapes/generated-local.ttl \
   concepts_excused.txt \
   exemplars.ttl \
-  monolithic.ttl \
   test_exemplar_coverage.py
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 -m doctest \
@@ -50,30 +48,29 @@ all: \
 	touch $@
 
 check: \
+  generated-monolithic.ttl \
   .pytest.done.log \
   .pyshacl.done.log
 
 clean:
 	@rm -f \
 	  .*.done.log \
-	  exemplars-entailment.ttl \
-	  exemplars-expanded.ttl \
-	  monolithic.ttl
+	  generated-*
 
-exemplars-entailment.ttl: \
+generated-exemplars-entailment.ttl: \
   $(top_srcdir)/.venv.done.log \
+  $(top_srcdir)/ontology/generated-ontology.ttl \
   $(top_srcdir)/src/entail.py \
-  exemplars.ttl \
-  monolithic.ttl
+  exemplars.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 $(top_srcdir)/src/entail.py \
 	    _$@ \
 	    exemplars.ttl \
-	    monolithic.ttl
+	    $(top_srcdir)/ontology/generated-ontology.ttl
 	mv _$@ $@
 
-exemplars-expanded.ttl: \
-  exemplars-entailment.ttl
+generated-exemplars-expanded.ttl: \
+  generated-exemplars-entailment.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
@@ -82,17 +79,17 @@ exemplars-expanded.ttl: \
 	    > _$@
 	mv _$@ $@
 
-monolithic.ttl: \
+# Cross-review OWL and SHACL specifications together.
+generated-monolithic.ttl: \
   $(top_srcdir)/.venv.done.log \
-  $(top_srcdir)/dependencies/imports-transitive.ttl \
-  $(shape_ttls) \
+  $(top_srcdir)/ontology/generated-ontology.ttl \
+  $(top_srcdir)/shapes/generated-shapes.ttl \
   $(uco_srcdir)/ontology/owl/owl.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
-	    $(top_srcdir)/dependencies/imports-transitive.ttl \
-	    $(shape_ttls) \
-	    $(uco_srcdir)/ontology/owl/owl.ttl \
+	    $(top_srcdir)/ontology/generated-ontology.ttl \
+	    $(top_srcdir)/shapes/generated-shapes.ttl \
 	    > _$@
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
