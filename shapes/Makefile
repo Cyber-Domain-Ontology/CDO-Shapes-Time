@@ -69,7 +69,6 @@ generated-dependencies.ttl: \
   $(generated_dependencies_ttls) \
   $(top_srcdir)/.venv.done.log \
   $(top_srcdir)/ontology/generated-dependencies.ttl \
-  $(uco_srcdir)/tests/thing.ttl \
   .empty.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
@@ -83,7 +82,7 @@ generated-dependencies.ttl: \
 	    --metashacl \
 	    --ont-graph $(top_srcdir)/ontology/generated-dependencies.ttl \
 	    --shacl _$@ \
-	    $(uco_srcdir)/tests/thing.ttl
+	    .empty.ttl
 	mv _$@ $@
 
 generated-local.ttl: \
@@ -112,5 +111,5 @@ generated-shapes.ttl: \
 	    --metashacl \
 	    --ont-graph $(top_srcdir)/ontology/generated-ontology.ttl \
 	    --shacl _$@ \
-	    $(uco_srcdir)/tests/thing.ttl
+	    .empty.ttl
 	mv _$@ $@

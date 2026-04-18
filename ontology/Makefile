@@ -29,7 +29,7 @@ all: \
   catalog-v001.xml
 
 # .empty.ttl is retained to guarantee rdfpipe takes at least one file as
-# an input when building generated-local.ttl.
+# an input when building generated-dependencies.ttl and -local.ttl.
 .empty.ttl:
 	test -r $@
 
@@ -62,11 +62,13 @@ clean:
 generated-dependencies.ttl: \
   $(generated_dependencies_ttls) \
   $(top_srcdir)/.venv.done.log \
-  $(uco_srcdir)/ontology/owl/owl.ttl
+  $(uco_srcdir)/ontology/owl/owl.ttl \
+  .empty.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
 	    $(generated_dependencies_ttls) \
+	    .empty.ttl \
 	    > _$@
 	# Check for conflicts when merging ontology files.
 	source $(top_srcdir)/venv/bin/activate \
