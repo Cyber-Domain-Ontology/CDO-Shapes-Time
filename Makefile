@@ -20,18 +20,27 @@ PYTHON3 ?= python3
 
 all: \
   .venv-pre-commit/var/.pre-commit-built.log \
-  all-shapes
+  all-shapes \
+  all-tests
 
 .PHONY: \
   all-dependencies \
+  all-ontology \
   all-shapes \
+  all-tests \
   check-dependencies \
   check-mypy \
+  check-ontology \
   check-shapes \
+  check-tests \
   check-supply-chain \
   check-supply-chain-cdo-shapes \
   check-supply-chain-pre-commit \
-  check-supply-chain-submodules
+  check-supply-chain-submodules \
+  clean-dependencies \
+  clean-ontology \
+  clean-shapes \
+  clean-tests
 
 # This Make target should be left in place, even if it does nothing.  It
 # has been found beneficial with profiles that have a submodule-based
@@ -96,19 +105,25 @@ all-dependencies: \
 	$(MAKE) \
 	  --directory dependencies
 
-all-shapes: \
+all-ontology: \
   all-dependencies
 	$(MAKE) \
+	  --directory ontology
+
+all-shapes: \
+  all-ontology
+	$(MAKE) \
 	  --directory shapes
+
+all-tests: \
+  all-ontology
+	$(MAKE) \
+	  --directory tests
 
 check: \
   .venv-pre-commit/var/.pre-commit-built.log \
   check-mypy \
-  check-dependencies \
-  check-shapes
-	$(MAKE) \
-	  --directory tests \
-	  check
+  check-tests
 
 check-dependencies: \
   all-dependencies
@@ -125,8 +140,16 @@ check-mypy: \
 	    --strict \
 	    .
 
+check-ontology: \
+  all-ontology \
+  check-dependencies
+	$(MAKE) \
+	  --directory ontology \
+	  check
+
 check-shapes: \
-  all-shapes
+  all-shapes \
+  check-ontology
 	$(MAKE) \
 	  --directory shapes \
 	  check
@@ -196,15 +219,37 @@ check-supply-chain-submodules: \
 	  --ignore-submodules=dirty \
 	  dependencies
 
-clean:
-	@$(MAKE) \
+check-tests: \
+  all-tests \
+  check-shapes
+	$(MAKE) \
 	  --directory tests \
-	  clean
-	@$(MAKE) \
-	  --directory shapes \
-	  clean
+	  check
+
+clean: \
+  clean-tests \
+  clean-shapes \
+  clean-ontology \
+  clean-dependencies
+	@rm -f \
+	  .*.done.log
+
+clean-dependencies:
 	@$(MAKE) \
 	  --directory dependencies \
 	  clean
-	@rm -f \
-	  .*.done.log
+
+clean-ontology:
+	@$(MAKE) \
+	  --directory ontology \
+	  clean
+
+clean-shapes:
+	@$(MAKE) \
+	  --directory shapes \
+	  clean
+
+clean-tests:
+	@$(MAKE) \
+	  --directory tests \
+	  clean

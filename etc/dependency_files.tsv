@@ -1,2 +1,2 @@
-http://www.w3.org/2006/time#2016	${top_srcdir}/dependencies/time.ttl
+http://www.w3.org/2006/time#2016	${top_srcdir}/dependencies/formatted-time.ttl
 http://example.org/shapes/sh-time	${top_srcdir}/shapes/sh-time.ttl

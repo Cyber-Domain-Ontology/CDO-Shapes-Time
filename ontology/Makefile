@@ -18,17 +18,12 @@ SHELL := /bin/bash
 
 top_srcdir := $(shell cd .. ; pwd)
 
+generated_dependencies_ttls := \
+  $(top_srcdir)/dependencies/formatted-time.ttl
+
 uco_srcdir := $(top_srcdir)/dependencies/UCO
 
-# This list is all of the graph files that contain shapes graphs linked
-# by owl:imports, plus the UCO OWL DL shapes.  The UCO OWL DL shapes are
-# not linked by owl:imports, to allow for substituting experimental
-# shapes or removing the dependency.  Non-shapes graphs are delegated to
-# ../ontology/generated-dependencies.ttl.
-generated_dependencies_ttls := \
-  $(uco_srcdir)/ontology/owl/owl.ttl
-
-ttl_basenames := $(wildcard sh-*.ttl)
+ttl_basenames := $(wildcard cdo-*.ttl)
 
 all: \
   catalog-v001.xml
@@ -43,61 +38,58 @@ catalog-v001.xml: \
   $(top_srcdir)/etc/domain_directories.tsv \
   $(top_srcdir)/etc/dependency_files.tsv \
   $(top_srcdir)/src/create-catalog-v001.xml.py \
-  $(uco_srcdir)/ontology/uco/master/catalog-v001.xml \
-  generated-shapes.ttl
+  generated-ontology.ttl
 	rm -f _$@
 	source $(top_srcdir)/venv/bin/activate \
 	  && python3 $(top_srcdir)/src/create-catalog-v001.xml.py \
-	    --catalog-xml $(uco_srcdir)/ontology/uco/master/catalog-v001.xml \
 	    _$@ \
 	    $(top_srcdir)/etc/domain_directories.tsv \
 	    $(top_srcdir)/etc/dependency_files.tsv \
 	    "$(top_srcdir)" \
-	    generated-shapes.ttl
+	    generated-ontology.ttl
 	mv _$@ $@
 
 check: \
-  catalog-v001.xml
+  all
 
 clean:
 	@rm -f \
+	  .*.done.log \
 	  _* \
 	  catalog-v001.xml \
-	  generated-*
+	  generated-*.ttl
 
 generated-dependencies.ttl: \
   $(generated_dependencies_ttls) \
   $(top_srcdir)/.venv.done.log \
-  $(top_srcdir)/ontology/generated-dependencies.ttl \
-  $(uco_srcdir)/tests/thing.ttl \
-  .empty.ttl
+  $(uco_srcdir)/ontology/owl/owl.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
 	    $(generated_dependencies_ttls) \
-	    .empty.ttl \
 	    > _$@
-	# Check for conflicts when merging shape files.
+	# Check for conflicts when merging ontology files.
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
-	    --metashacl \
-	    --ont-graph $(top_srcdir)/ontology/generated-dependencies.ttl \
-	    --shacl _$@ \
-	    $(uco_srcdir)/tests/thing.ttl
+	    --shacl $(uco_srcdir)/ontology/owl/owl.ttl \
+	    _$@
 	mv _$@ $@
 
+# OWL shapes not run against this file, as there may be axioms needed
+# from generated-dependencies.ttl.
 generated-local.ttl: \
   $(top_srcdir)/.venv.done.log \
-  $(ttl_basenames)
+  $(ttl_basenames) \
+  .empty.ttl
 	source $(top_srcdir)/venv/bin/activate \
 	  && rdfpipe \
 	    --output-format turtle \
 	    $(ttl_basenames) \
+	    .empty.ttl \
 	    > _$@
 	mv _$@ $@
 
-generated-shapes.ttl: \
-  $(top_srcdir)/ontology/generated-ontology.ttl \
+generated-ontology.ttl: \
   generated-dependencies.ttl \
   generated-local.ttl
 	source $(top_srcdir)/venv/bin/activate \
@@ -106,11 +98,9 @@ generated-shapes.ttl: \
 	    generated-dependencies.ttl \
 	    generated-local.ttl \
 	    > _$@
-	# Check for conflicts when merging shape files.
+	# Check for conflicts when merging ontology files.
 	source $(top_srcdir)/venv/bin/activate \
 	  && pyshacl \
-	    --metashacl \
-	    --ont-graph $(top_srcdir)/ontology/generated-ontology.ttl \
-	    --shacl _$@ \
-	    $(uco_srcdir)/tests/thing.ttl
+	    --shacl $(uco_srcdir)/ontology/owl/owl.ttl \
+	    _$@
 	mv _$@ $@
