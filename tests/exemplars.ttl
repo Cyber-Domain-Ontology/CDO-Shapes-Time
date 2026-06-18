@@ -1,10 +1,11 @@
-# imports: http://example.org/shapes/sh-time
+# imports: http://www.w3.org/2006/time#2016
 
 @prefix drafting: <http://example.org/ontology/drafting/> .
 @prefix kb: <http://example.org/kb/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sh-time: <http://example.org/shapes/sh-time/> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -12,7 +13,8 @@
 <http://example.org/kb>
 	a owl:Ontology ;
 	rdfs:comment "This knowledge base instantiates each of the shape-reviewed classes and properties, so SHACL shapes can be exercised for the reviewed ontology."@en ;
-	owl:imports <http://example.org/shapes/sh-time> ;
+	owl:imports time:2016 ;
+	sh:shapesGraph <http://example.org/shapes/sh-time-editors-draft> ;
 	.
 
 kb:GeneralDurationDescription-89366d8a-3c9f-4941-8e70-809661c0458e
