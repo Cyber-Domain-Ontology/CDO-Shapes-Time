@@ -63,7 +63,7 @@ clean:
 	  catalog-v001.xml
 
 formatted-time.ttl: \
-  sdw/time/rdf/time.ttl \
+  sdw-time/rdf/time.ttl \
   $(RDF_TOOLKIT_JAR) \
   $(top_srcdir)/.venv.done.log
 	source $(top_srcdir)/venv/bin/activate \
